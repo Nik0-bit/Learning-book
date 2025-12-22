@@ -1,254 +1,254 @@
 # ==========================================================
-# УРОК 1: МОДУЛЬ 1 - CORE
-# config.py - Конфигурация приложения
+# LESSON 1: MODULE 1 - CORE
+# config.py - Application Configuration
 # 
-# Этот файл содержит все настройки приложения, которые
-# загружаются из переменных окружения (.env файл).
+# This file contains all application settings that
+# are loaded from environment variables (.env file).
 # ==========================================================
 
-# Строка 1: Импорт встроенного модуля Python 'os'
-# Откуда: это встроенная библиотека Python (не нужно устанавливать через pip)
-# Что это: модуль для работы с операционной системой
-# Зачем: нужен для работы с переменными окружения (os.getenv)
+# Line 1: Import built-in Python module 'os'
+# From where: this is a built-in Python library (no need to install via pip)
+# What is this: module for working with the operating system
+# Why: needed for working with environment variables (os.getenv)
 import os
-# Что такое переменные окружения: это настройки системы/программы,
-# которые хранятся вне кода (в файле .env или в настройках ОС)
-# Сравнение: как настройки телефона - они отдельно от самого телефона
+# What are environment variables: these are system/program settings,
+# stored outside the code (in .env file or in OS settings)
+# Comparison: like phone settings - they are separate from the phone itself
 
 
-# Строка 2: Импорт из внешней библиотеки pydantic_settings
-# Откуда: это внешняя библиотека, устанавливается через pip install pydantic-settings
-# Что это: библиотека для работы с настройками приложения
-# BaseSettings - базовый класс для создания классов с настройками
-# SettingsConfigDict - класс для конфигурации того, как настраиваются настройки
+# Line 2: Import from external library pydantic_settings
+# From where: this is an external library, installed via pip install pydantic-settings
+# What is this: library for working with application settings
+# BaseSettings - base class for creating classes with settings
+# SettingsConfigDict - class for configuring how settings are configured
 from pydantic_settings import BaseSettings, SettingsConfigDict
-# Что такое pydantic: библиотека для валидации данных (проверка правильности)
-# Сравнение: как охранник, который проверяет паспорт перед входом - 
-# если данные неверные, не пускает
+# What is pydantic: library for data validation (checking correctness)
+# Comparison: like a security guard who checks your passport before entry - 
+# if data is incorrect, doesn't let you in
 
 
-# Строка 3: Пустая строка для читаемости кода (разделяет импорты и классы)
+# Line 3: Empty line for code readability (separates imports and classes)
 
 
-# Строка 4: Определение класса Settings
-# class - ключевое слово Python для создания класса (шаблона объекта)
-# Settings - название нашего класса (класс = шаблон для создания объектов)
-# BaseSettings - класс-родитель, от которого наследуется наш класс
-# Наследование: наш класс получает всю функциональность BaseSettings
-# Сравнение: как ребёнок наследует фамилию от родителей - получает их свойства
+# Line 4: Definition of Settings class
+# class - Python keyword for creating a class (object template)
+# Settings - name of our class (class = template for creating objects)
+# BaseSettings - parent class from which our class inherits
+# Inheritance: our class gets all functionality from BaseSettings
+# Comparison: like a child inheriting surname from parents - gets their properties
 class Settings(BaseSettings):
     
-    # model_config = инструкция для класса Settings:
-    # - Откуда читать настройки
-    # - Как обрабатывать данные
-    # - Что делать с лишним
-    # - Учитывать ли регистр
-    # Строка 5: model_config - специальное поле для настройки класса
-    # SettingsConfigDict - класс-конфигуратор из pydantic_settings
-    # Что делает: настраивает как наш класс Settings будет работать
-    # SettingsConfigDict наполняет model_config настройками (инструкциями)
+    # model_config = instructions for Settings class:
+    # - Where to read settings from
+    # - How to process data
+    # - What to do with extra fields
+    # - Whether to consider case sensitivity
+    # Line 5: model_config - special field for configuring the class
+    # SettingsConfigDict - configuration class from pydantic_settings
+    # What it does: configures how our Settings class will work
+    # SettingsConfigDict fills model_config with settings (instructions)
     model_config = SettingsConfigDict(
-        # Строка 6: env_file - путь к файлу с переменными окружения
-        # os.getenv("ENV_FILE", ".env") - получает значение переменной ENV_FILE из системы
-        # Если переменной нет, использует ".env" по умолчанию (второй аргумент)
-        # Что такое .env файл: текстовый файл с настройками в формате KEY=VALUE
-        # Роли: os.getenv = исполнитель (получает путь), env_file = путь (куда сохраняется), BaseSettings = читатель (читает файл)
+        # Line 6: env_file - path to file with environment variables
+        # os.getenv("ENV_FILE", ".env") - gets value of ENV_FILE variable from system
+        # If variable doesn't exist, uses ".env" by default (second argument)
+        # What is .env file: text file with settings in KEY=VALUE format
+        # Roles: os.getenv = executor (gets path), env_file = path (where it's saved), BaseSettings = reader (reads file)
         env_file=os.getenv("ENV_FILE", ".env"),
-        # Строка 7: extra="ignore" - игнорировать лишние поля
-        # Если в .env файле есть переменные, которых нет в классе Settings - игнорировать их
-        # "ignore" = игнорировать, можно также "forbid" = запрещать (выдавать ошибку)
+        # Line 7: extra="ignore" - ignore extra fields
+        # If .env file has variables that don't exist in Settings class - ignore them
+        # "ignore" = ignore, can also use "forbid" = forbid (raise error)
         extra="ignore",
-        # Строка 8: case_sensitive=False - регистр не важен
-        # SECRET_KEY и secret_key будут считаться одинаковыми
-        # True = регистр важен, False = не важен
+        # Line 8: case_sensitive=False - case doesn't matter
+        # SECRET_KEY and secret_key will be considered the same
+        # True = case matters, False = doesn't matter
         case_sensitive=False,
     )
-    # Сравнение model_config: как инструкция для рабочего - 
-    # "читай настройки из этой папки, лишнее игнорируй, регистр не важен"
+    # Comparison model_config: like instructions for a worker - 
+    # "read settings from this folder, ignore extra, case doesn't matter"
 
 
-    # Строка 9: Комментарий - секция JWT (JSON Web Token)
-    # JWT - способ безопасной передачи данных между клиентом и сервером
-    # Сравнение: как пропуск с информацией о тебе, который проверяют на входе
+    # Line 9: Comment - JWT section (JSON Web Token)
+    # JWT - method for secure data transfer between client and server
+    # Comparison: like a pass with information about you, checked at entry
     
     # JWT
-    # Строка 10: SECRET_KEY - секретный ключ для подписи JWT токенов
-    # str - тип данных "строка" (текст)
-    # Обязательное поле (нет значения по умолчанию) - должно быть в .env файле
-    # Зачем: используется для создания и проверки токенов безопасности
+    # Line 10: SECRET_KEY - secret key for signing JWT tokens
+    # str - data type "string" (text)
+    # Required field (no default value) - must be in .env file
+    # Why: used for creating and verifying security tokens
     SECRET_KEY: str
-    # Сравнение: как секретный код от сейфа - без него нельзя открыть/закрыть
+    # Comparison: like a secret code for a safe - can't open/close without it
     
-    # Строка 11: ACCESS_TOKEN_EXPIRE_MINUTES - время жизни токена доступа в минутах
-    # int - тип данных "целое число" (например: 1, 2, 60)
-    # = 60 - значение по умолчанию, если не указано в .env
-    # Что это: через сколько минут токен перестанет работать (истекёт)
+    # Line 11: ACCESS_TOKEN_EXPIRE_MINUTES - access token lifetime in minutes
+    # int - data type "integer" (e.g.: 1, 2, 60)
+    # = 60 - default value if not specified in .env
+    # What is this: after how many minutes the token stops working (expires)
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
-    # Сравнение: как срок действия пропуска - через час нужно получить новый
+    # Comparison: like pass expiration date - need to get a new one after an hour
 
 
-    # Строка 12: Комментарий - ключ доступа к документации
-    # Docs = документация (Swagger UI - веб-интерфейс для тестирования API)
+    # Line 12: Comment - documentation access key
+    # Docs = documentation (Swagger UI - web interface for testing API)
     
     # Docs access key
-    # Строка 13: DOCS_API_KEY - секретный ключ для доступа к документации
-    # str - строка (текст)
-    # Обязательное поле - должен быть в .env
-    # Зачем: защита документации от посторонних (нужно знать ключ, чтобы посмотреть)
+    # Line 13: DOCS_API_KEY - secret key for accessing documentation
+    # str - string (text)
+    # Required field - must be in .env
+    # Why: protect documentation from unauthorized access (need to know key to view)
     DOCS_API_KEY: str
-    # Сравнение: как пароль от Wi-Fi - без него не подключишься
+    # Comparison: like Wi-Fi password - can't connect without it
 
 
-    # Строка 14: Комментарий - CORS настройки
-    # CORS = Cross-Origin Resource Sharing (совместное использование ресурсов между источниками)
-    # Что это: разрешение браузеру обращаться к API с другого домена
+    # Line 14: Comment - CORS settings
+    # CORS = Cross-Origin Resource Sharing (sharing resources between origins)
+    # What is this: permission for browser to access API from another domain
     
     # CORS
-    # Строка 15: FRONTEND_CORS_ORIGINS - какие домены могут обращаться к API
-    # str - строка
-    # "*" - значение по умолчанию означает "разрешить всем"
-    # Можно указать конкретные домены: "http://localhost:3000,https://myapp.com"
+    # Line 15: FRONTEND_CORS_ORIGINS - which domains can access the API
+    # str - string
+    # "*" - default value means "allow everyone"
+    # Can specify specific domains: "http://localhost:3000,https://myapp.com"
     FRONTEND_CORS_ORIGINS: str = "*"
-    # Сравнение: как список гостей на вечеринке - кто может войти
+    # Comparison: like guest list for a party - who can enter
 
 
-    # Строка 16: Комментарий - настройки Rate Limit (ограничение частоты запросов)
-    # Rate Limit - защита от слишком частых запросов (DDoS защита)
-    # Сравнение: как ограничение на количество входов в музей за день
+    # Line 16: Comment - Rate Limit settings (request rate limiting)
+    # Rate Limit - protection against too frequent requests (DDoS protection)
+    # Comparison: like limit on number of museum entries per day
     
-    # ---------- Rate Limit (новые строки) ----------
-    # Строка 17: RATE_LIMIT_ENABLED - включено ли ограничение частоты запросов
-    # bool - тип данных "логический" (True или False)
-    # False - по умолчанию выключено
-    # Зачем: можно временно отключить rate limiting для отладки
+    # ---------- Rate Limit (new lines) ----------
+    # Line 17: RATE_LIMIT_ENABLED - is request rate limiting enabled
+    # bool - data type "boolean" (True or False)
+    # False - disabled by default
+    # Why: can temporarily disable rate limiting for debugging
     RATE_LIMIT_ENABLED: bool = False
-    # Строка 18: RATE_LIMIT_AUTH_PER_MINUTE - сколько запросов в минуту разрешено для /auth/*
-    # int - целое число
-    # 20 - значение по умолчанию (20 запросов в минуту)
-    # /auth/* - эндпоинты авторизации (логин, регистрация)
+    # Line 18: RATE_LIMIT_AUTH_PER_MINUTE - how many requests per minute allowed for /auth/*
+    # int - integer
+    # 20 - default value (20 requests per minute)
+    # /auth/* - authorization endpoints (login, registration)
     RATE_LIMIT_AUTH_PER_MINUTE: int = 20
-    # Строка 19: RATE_LIMIT_DISCORD_PER_MINUTE - лимит для Discord эндпоинтов
-    # 30 запросов в минуту по умолчанию
+    # Line 19: RATE_LIMIT_DISCORD_PER_MINUTE - limit for Discord endpoints
+    # 30 requests per minute by default
     RATE_LIMIT_DISCORD_PER_MINUTE: int = 30
-    # Строка 20: RATE_LIMIT_ADMIN_PER_MINUTE - лимит для админских эндпоинтов
-    # 10 запросов в минуту (меньше, т.к. админские операции важнее защищать)
+    # Line 20: RATE_LIMIT_ADMIN_PER_MINUTE - limit for admin endpoints
+    # 10 requests per minute (lower, because admin operations need more protection)
     RATE_LIMIT_ADMIN_PER_MINUTE: int = 10
-    # Строка 21: RATE_LIMIT_DOCS_PER_MINUTE - лимит для документации
-    # 20 запросов в минуту
+    # Line 21: RATE_LIMIT_DOCS_PER_MINUTE - limit for documentation
+    # 20 requests per minute
     RATE_LIMIT_DOCS_PER_MINUTE: int = 20
 
 
-    # Строка 22: Комментарий - настройки Discord интеграции
-    # Discord - мессенджер/платформа для сообществ
+    # Line 22: Comment - Discord integration settings
+    # Discord - messenger/platform for communities
     
     # ---------- Discord ----------
-    # Строка 23: DISCORD_CLIENT_ID - ID приложения Discord (для OAuth авторизации)
-    # str - строка, "" - пустая строка по умолчанию (нужно заполнить в .env)
-    # OAuth - способ авторизации через сторонний сервис (Discord)
+    # Line 23: DISCORD_CLIENT_ID - Discord application ID (for OAuth authorization)
+    # str - string, "" - empty string by default (need to fill in .env)
+    # OAuth - method of authorization through third-party service (Discord)
     DISCORD_CLIENT_ID: str = ""
-    # Строка 24: DISCORD_CLIENT_SECRET - секретный ключ Discord приложения
-    # Секретный ключ - как пароль, никому нельзя показывать
+    # Line 24: DISCORD_CLIENT_SECRET - Discord application secret key
+    # Secret key - like password, must not be shown to anyone
     DISCORD_CLIENT_SECRET: str = ""
-    # Строка 25: DISCORD_REDIRECT_URI - куда Discord перенаправит после авторизации
-    # Например: "http://localhost:8000/discord/callback"
-    # Redirect = перенаправление (после авторизации Discord отправляет пользователя обратно)
+    # Line 25: DISCORD_REDIRECT_URI - where Discord redirects after authorization
+    # Example: "http://localhost:8000/discord/callback"
+    # Redirect = redirection (after authorization Discord sends user back)
     DISCORD_REDIRECT_URI: str = ""
-    # Строка 26: DISCORD_BOT_TOKEN - токен Discord бота
-    # Бот - автоматизированная программа в Discord, которая может выполнять действия
-    # Токен - как пароль для бота
+    # Line 26: DISCORD_BOT_TOKEN - Discord bot token
+    # Bot - automated program in Discord that can perform actions
+    # Token - like password for bot
     DISCORD_BOT_TOKEN: str = ""
-    # Строка 27: DISCORD_GUILD_ID - ID сервера Discord (гильдии/сообщества)
-    # Guild = сервер Discord (сообщество пользователей)
+    # Line 27: DISCORD_GUILD_ID - Discord server ID (guild/community)
+    # Guild = Discord server (user community)
     DISCORD_GUILD_ID: str = ""
-    # Строка 28: DISCORD_SUBSCRIBER_ROLE_ID - ID роли подписчика в Discord
-    # Роль - права пользователя в Discord (модератор, подписчик и т.д.)
+    # Line 28: DISCORD_SUBSCRIBER_ROLE_ID - subscriber role ID in Discord
+    # Role - user permissions in Discord (moderator, subscriber, etc.)
     DISCORD_SUBSCRIBER_ROLE_ID: str = ""
-    # Строка 29: DISCORD_REQUIRE_GUILD_MEMBERSHIP - требовать ли членство в сервере
-    # bool - True или False
-    # False - по умолчанию не требовать (можно авторизоваться без вступления в сервер)
-    # Если True - пользователь должен быть участником Discord сервера
+    # Line 29: DISCORD_REQUIRE_GUILD_MEMBERSHIP - require server membership
+    # bool - True or False
+    # False - by default don't require (can authorize without joining server)
+    # If True - user must be a Discord server member
     DISCORD_REQUIRE_GUILD_MEMBERSHIP: bool = False
 
 
-    # Строка 30: Комментарий - список разрешённых IP адресов для документации
-    # IP адрес - уникальный адрес компьютера в интернете (например: 192.168.1.1)
+    # Line 30: Comment - list of allowed IP addresses for documentation
+    # IP address - unique computer address on internet (e.g.: 192.168.1.1)
     
     # Docs IP allowlist
-    # Строка 31: DOCS_ALLOWED_IPS - список IP, которым разрешён доступ к документации
-    # str - строка, "" - пустая по умолчанию (все могут смотреть)
-    # Формат: "192.168.1.1,10.0.0.1" (несколько IP через запятую)
+    # Line 31: DOCS_ALLOWED_IPS - list of IPs allowed to access documentation
+    # str - string, "" - empty by default (everyone can view)
+    # Format: "192.168.1.1,10.0.0.1" (multiple IPs separated by comma)
     DOCS_ALLOWED_IPS: str = ""
-    # Сравнение: как белый список гостей - только эти люди могут войти
+    # Comparison: like guest whitelist - only these people can enter
 
 
-    # Строка 32: Комментарий - настройки платежей
-    # Payments = платежи (криптовалютные транзакции)
+    # Line 32: Comment - payment settings
+    # Payments = payments (cryptocurrency transactions)
     
     # ---------- Payments ----------
-    # Строка 33: ALCHEMY_ETHEREUM_URL - URL для подключения к Ethereum блокчейну через Alchemy
-    # Alchemy - сервис для работы с блокчейном (как провайдер интернета для блокчейна)
-    # Ethereum - криптовалютная сеть
-    # URL - адрес сервера (например: "https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY")
+    # Line 33: ALCHEMY_ETHEREUM_URL - URL for connecting to Ethereum blockchain via Alchemy
+    # Alchemy - service for working with blockchain (like internet provider for blockchain)
+    # Ethereum - cryptocurrency network
+    # URL - server address (e.g.: "https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY")
     ALCHEMY_ETHEREUM_URL: str = ""
-    # Строка 34: ALCHEMY_POLYGON_URL - URL для сети Polygon
-    # Polygon - ещё одна криптовалютная сеть (более дешёвые транзакции)
+    # Line 34: ALCHEMY_POLYGON_URL - URL for Polygon network
+    # Polygon - another cryptocurrency network (cheaper transactions)
     ALCHEMY_POLYGON_URL: str = ""
-    # Строка 35: ALCHEMY_ARBITRUM_URL - URL для сети Arbitrum
-    # Arbitrum - сеть второго уровня (Layer 2) для Ethereum (быстрее и дешевле)
+    # Line 35: ALCHEMY_ARBITRUM_URL - URL for Arbitrum network
+    # Arbitrum - Layer 2 network for Ethereum (faster and cheaper)
     ALCHEMY_ARBITRUM_URL: str = ""
-    # Строка 36: ALCHEMY_OPTIMISM_URL - URL для сети Optimism
-    # Optimism - ещё одна сеть Layer 2 для Ethereum
+    # Line 36: ALCHEMY_OPTIMISM_URL - URL for Optimism network
+    # Optimism - another Layer 2 network for Ethereum
     ALCHEMY_OPTIMISM_URL: str = ""
-    # Строка 37: HELIUS_SOLANA_URL - URL для сети Solana через Helius
-    # Solana - другая криптовалютная сеть (не связана с Ethereum)
-    # Helius - сервис для работы с Solana (аналог Alchemy для Ethereum)
+    # Line 37: HELIUS_SOLANA_URL - URL for Solana network via Helius
+    # Solana - different cryptocurrency network (not related to Ethereum)
+    # Helius - service for working with Solana (analog of Alchemy for Ethereum)
     HELIUS_SOLANA_URL: str = ""
-    # Строка 38: PAYMENT_STRICT - строгая проверка платежей
-    # bool - True или False
-    # False - по умолчанию не строгая (для разработки)
-    # True - строгая проверка (для продакшена) - проверяет что транзакция реально прошла
+    # Line 38: PAYMENT_STRICT - strict payment verification
+    # bool - True or False
+    # False - by default not strict (for development)
+    # True - strict verification (for production) - checks that transaction actually went through
     PAYMENT_STRICT: bool = False
 
 
-    # Строка 39: Комментарий - уровень логирования
+    # Line 39: Comment - logging level
     
     # Logging
-    # Строка 40: LOG_LEVEL - уровень детализации логов
-    # str - строка
-    # "INFO" - по умолчанию информационный уровень
-    # Варианты: "DEBUG" (самый подробный), "INFO", "WARNING", "ERROR", "CRITICAL"
-    # Логи = записи о том, что происходит в приложении (ошибки, действия и т.д.)
+    # Line 40: LOG_LEVEL - log detail level
+    # str - string
+    # "INFO" - informational level by default
+    # Options: "DEBUG" (most detailed), "INFO", "WARNING", "ERROR", "CRITICAL"
+    # Logs = records of what happens in application (errors, actions, etc.)
     LOG_LEVEL: str = "INFO"
-    # Сравнение: как уровень громкости музыки - DEBUG = очень громко, ERROR = только крики
+    # Comparison: like music volume level - DEBUG = very loud, ERROR = only screams
 
 
-# Строка 41: Пустая строка для разделения класса и кода ниже
+# Line 41: Empty line to separate class and code below
 
 
-# Строка 42: settings - создание экземпляра класса Settings
-# Settings() - вызов класса как функции создаёт объект (экземпляр класса)
-# settings - переменная, которая хранит объект с настройками
-# Что происходит: pydantic автоматически читает .env файл и заполняет поля класса
+# Line 42: settings - create instance of Settings class
+# Settings() - calling class as function creates object (class instance)
+# settings - variable that stores object with settings
+# What happens: pydantic automatically reads .env file and fills class fields
 settings = Settings()
-# Сравнение: как заполнение анкеты - ты создаёшь пустую анкету (класс),
-# а потом заполняешь её данными из .env файла (settings = Settings())
+# Comparison: like filling out a form - you create empty form (class),
+# then fill it with data from .env file (settings = Settings())
 
 
-# Строка 43: Комментарий - удобные алиасы (псевдонимы)
-# Алиас = короткое имя вместо длинного (settings.SECRET_KEY → SECRET_KEY)
+# Line 43: Comment - convenient aliases (pseudonyms)
+# Alias = short name instead of long one (settings.SECRET_KEY → SECRET_KEY)
 
-# Удобные алиасы
-# Строка 44: SECRET_KEY - создание переменной-алиаса
-# settings.SECRET_KEY - обращение к полю SECRET_KEY объекта settings
-# SECRET_KEY = ... - создание новой переменной с таким же значением
-# Зачем: можно писать SECRET_KEY вместо settings.SECRET_KEY (короче)
+# Convenient aliases
+# Line 44: SECRET_KEY - create alias variable
+# settings.SECRET_KEY - access SECRET_KEY field of settings object
+# SECRET_KEY = ... - create new variable with same value
+# Why: can write SECRET_KEY instead of settings.SECRET_KEY (shorter)
 SECRET_KEY = settings.SECRET_KEY
-# Строка 45: ACCESS_TOKEN_EXPIRE_MINUTES - алиас для времени жизни токена
+# Line 45: ACCESS_TOKEN_EXPIRE_MINUTES - alias for token lifetime
 ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
 
-# Строки 46-87: аналогично создаются алиасы для всех остальных настроек
-# Это позволяет импортировать настройки напрямую: from app.core.config import SECRET_KEY
-# Вместо: from app.core.config import settings; key = settings.SECRET_KEY
+# Lines 46-87: similarly create aliases for all other settings
+# This allows importing settings directly: from app.core.config import SECRET_KEY
+# Instead of: from app.core.config import settings; key = settings.SECRET_KEY
 
 DOCS_API_KEY = settings.DOCS_API_KEY
 FRONTEND_CORS_ORIGINS = settings.FRONTEND_CORS_ORIGINS
@@ -279,38 +279,37 @@ DOCS_ALLOWED_IPS = settings.DOCS_ALLOWED_IPS
 
 
 # ==========================================================
-# ВОПРОСЫ ДЛЯ ЗАКРЕПЛЕНИЯ УРОКА 1:
+# QUESTIONS FOR REINFORCING LESSON 1:
 # ==========================================================
 # 
-# 1. Что такое переменные окружения (.env файл)? 
-#    Зачем они нужны и почему не храним секреты прямо в коде?
+# 1. What are environment variables (.env file)? 
+#    Why are they needed and why don't we store secrets directly in code?
 #
-# 2. Что такое pydantic и BaseSettings? 
-#    Зачем нужна библиотека pydantic-settings для работы с настройками?
+# 2. What is pydantic and BaseSettings? 
+#    Why is pydantic-settings library needed for working with settings?
 #
-# 3. Что означает extra="ignore" в model_config? 
-#    Что произойдёт, если установить extra="forbid"?
+# 3. What does extra="ignore" mean in model_config? 
+#    What will happen if we set extra="forbid"?
 #
-# 4. Что такое CORS и зачем нужна настройка FRONTEND_CORS_ORIGINS?
-#    Почему "*" может быть небезопасно в продакшене?
+# 4. What is CORS and why is FRONTEND_CORS_ORIGINS setting needed?
+#    Why can "*" be unsafe in production?
 #
-# 5. Что такое Rate Limit и зачем он нужен?
-#    Почему для админских эндпоинтов лимит ниже (10), чем для auth (20)?
+# 5. What is Rate Limit and why is it needed?
+#    Why is limit for admin endpoints lower (10) than for auth (20)?
 #
-# 6. Что такое JWT токен и зачем нужен SECRET_KEY?
-#    Что произойдёт, если кто-то узнает SECRET_KEY?
+# 6. What is JWT token and why is SECRET_KEY needed?
+#    What will happen if someone finds out SECRET_KEY?
 #
-# 7. Зачем создавать алиасы в конце файла (SECRET_KEY = settings.SECRET_KEY)?
-#    Какое преимущество даёт такой подход?
+# 7. Why create aliases at the end of file (SECRET_KEY = settings.SECRET_KEY)?
+#    What advantage does this approach give?
 #
-# 8. Что такое OAuth и зачем нужны DISCORD_CLIENT_ID и DISCORD_CLIENT_SECRET?
-#    Почему CLIENT_SECRET должен храниться в секрете?
+# 8. What is OAuth and why are DISCORD_CLIENT_ID and DISCORD_CLIENT_SECRET needed?
+#    Why should CLIENT_SECRET be kept secret?
 #
-# 9. Что такое блокчейн-сети (Ethereum, Polygon, Arbitrum, Optimism, Solana)?
-#    Зачем нужны разные URL для разных сетей?
+# 9. What are blockchain networks (Ethereum, Polygon, Arbitrum, Optimism, Solana)?
+#    Why are different URLs needed for different networks?
 #
-# 10. Что такое LOG_LEVEL и какие бывают уровни логирования?
-#     Когда использовать DEBUG, а когда ERROR?
+# 10. What is LOG_LEVEL and what are the logging levels?
+#     When to use DEBUG, and when ERROR?
 #
 # ==========================================================
-

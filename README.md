@@ -1,83 +1,82 @@
-# Akiro Backend - Учебная версия проекта
+# Akiro Backend - Learning Version
 
-## Описание
+## Description
 
-Это учебная версия проекта Akiro Backend с подробными комментариями к каждой строке кода.
+This is a learning version of the Akiro Backend project with detailed comments for every line of code.
 
-## Структура проекта
+## Project Structure
 
-Проект организован по модулям с номерами уроков для последовательного изучения:
+The project is organized into modules with lesson numbers for sequential learning:
 
-### Модуль 1 - CORE (Базовая конфигурация)
-- `01_config.py` - Настройки приложения
-- `02_constants.py` - Константы
-- `07_security.py` - JWT токены
-- `18_logger.py` - Логирование
+### Module 1 - CORE (Basic Configuration)
+- `01_config.py` - Application settings
+- `02_constants.py` - Constants
+- `07_security.py` - JWT tokens
+- `18_logger.py` - Logging
 - `19_rate_limiter.py` - Rate limiting
 - `20_dependencies.py` - Dependency injection
-- `21_admin.py` - Админ зависимости
+- `21_admin.py` - Admin dependencies
 - `22_middleware.py` - Middleware
-- `23_docs_security.py` - Защита документации
+- `23_docs_security.py` - Documentation security
 
-### Модуль 2 - DB (База данных)
-- `03_database.py` - Подключение к БД
-- `08_user_repository.py` - Репозиторий пользователей
-- `09_subscription_repository.py` - Репозиторий подписок
-- `10_admin_log_repository.py` - Репозиторий логов
+### Module 2 - DB (Database)
+- `03_database.py` - Database connection
+- `08_user_repository.py` - User repository
+- `09_subscription_repository.py` - Subscription repository
+- `10_admin_log_repository.py` - Log repository
 
-### Модуль 3 - MODELS (Модели данных)
-- `04_user.py` - Модель пользователя
-- `05_subscription.py` - Модель подписки
-- `06_admin_log.py` - Модель лога админа
+### Module 3 - MODELS (Data Models)
+- `04_user.py` - User model
+- `05_subscription.py` - Subscription model
+- `06_admin_log.py` - Admin log model
 
-### Модуль 6 - SERVICES (Бизнес-логика)
-- `11_user_service.py` - Сервис пользователей
-- `12_auth_service.py` - Сервис авторизации
-- `13_payment_service.py` - Сервис проверки платежей
-- `14_discord_service.py` - Сервис Discord
-- `15_subscription_service.py` - Сервис подписок
-- `16_admin_log_service.py` - Сервис логов
-- `17_cron_service.py` - Cron задачи
+### Module 6 - SERVICES (Business Logic)
+- `11_user_service.py` - User service
+- `12_auth_service.py` - Authentication service
+- `13_payment_service.py` - Payment verification service
+- `14_discord_service.py` - Discord service
+- `15_subscription_service.py` - Subscription service
+- `16_admin_log_service.py` - Log service
+- `17_cron_service.py` - Cron jobs
 
-### Модуль 9 - API (Эндпоинты)
-- `26_auth_api.py` - API авторизации
-- `27_subscriptions_api.py` - API подписок
-- `28_discord_api.py` - API Discord
-- `29_admin_api.py` - API админки
-- `30_admin_logs_api.py` - API логов админов
+### Module 9 - API (Endpoints)
+- `26_auth_api.py` - Authentication API
+- `27_subscriptions_api.py` - Subscriptions API
+- `28_discord_api.py` - Discord API
+- `29_admin_api.py` - Admin API
+- `30_admin_logs_api.py` - Admin logs API
 
-### Модуль 10 - MAIN
-- `31_main.py` - Главный файл приложения
+### Module 10 - MAIN
+- `31_main.py` - Main application file
 
-## Особенности
+## Features
 
-- Каждая строка кода имеет подробный комментарий
-- Объяснения концепций и терминов
-- Сравнения с реальным миром
-- Вопросы для закрепления в конце каждого файла
-- Последовательная структура уроков от базовых к сложным
+- Every line of code has detailed comments
+- Concept and term explanations
+- Real-world comparisons
+- Questions for review at the end of each file
+- Sequential lesson structure from basic to advanced
 
-## ⚠️ Важно: Файлы-алиасы
+## ⚠️ Important: Alias Files
 
-В проекте есть файлы с номерами (например, `01_config.py`, `06_admin_log.py`) и файлы без номеров (например, `config.py`, `admin_log.py`).
+The project has numbered files (e.g., `01_config.py`, `06_admin_log.py`) and files without numbers (e.g., `config.py`, `admin_log.py`).
 
-**Это НЕ дубликаты!** Это файлы-алиасы для совместимости импортов:
+**These are NOT duplicates!** These are alias files for import compatibility:
 
-- **Файлы с номерами** (`01_config.py`, `02_constants.py`, и т.д.) — учебные версии с подробными комментариями для изучения
-- **Файлы без номеров** (`config.py`, `constants.py`, и т.д.) — алиасы, которые реэкспортируют из файлов с номерами
+- **Numbered files** (`01_config.py`, `02_constants.py`, etc.) — learning versions with detailed comments for study
+- **Files without numbers** (`config.py`, `constants.py`, etc.) — aliases that re-export from numbered files
 
-**Почему так сделано?** В Python нельзя импортировать модули, имена которых начинаются с цифр (например, `from app.core.01_config import ...` не работает напрямую). Поэтому созданы файлы-алиасы без номеров, которые используются в коде, а файлы с номерами — для изучения.
+**Why is this done?** In Python, you cannot import modules whose names begin with digits (e.g., `from app.core.01_config import ...` doesn't work directly). Therefore, alias files without numbers were created that are used in code, while numbered files are for learning.
 
-**Для изучения:** читайте файлы с номерами (они содержат все комментарии)  
-**Для работы кода:** используются файлы без номеров (они импортируют из файлов с номерами)
+**For learning:** read the numbered files (they contain all comments)  
+**For code execution:** use files without numbers (they import from numbered files)
 
-## Запуск
+## Running
 
-1. Установите зависимости: `pip install -r requirements.txt`
-2. Создайте файл `.env` на основе `env.sample`
-3. Запустите сервер: `python run.bat` (Windows) или `python -m uvicorn app.main:app --reload`
+1. Install dependencies: `pip install -r requirements.txt`
+2. Create `.env` file based on `env.sample`
+3. Run server: `python run.bat` (Windows) or `python -m uvicorn app.main:app --reload`
 
-## Изучение
+## Learning
 
-Рекомендуется изучать файлы в порядке их номеров, начиная с `01_config.py` и заканчивая `31_main.py`.
-
+It is recommended to study files in order of their numbers, starting with `01_config.py` and ending with `31_main.py`.
